@@ -1,5 +1,7 @@
 import { GetStaticProps } from 'next';
 
+import SEO from '../../components/SEO';
+
 type Post = {
   id: string;
   title: string;
@@ -12,6 +14,7 @@ type PostsProps = {
 export default function Posts({ posts }: PostsProps) {
   return (
     <div>
+      <SEO title="Posts" />
       <h1>Posts</h1>
       <ul>
         {posts.map(post => (

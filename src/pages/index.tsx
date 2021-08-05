@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
-import { useState, useEffect } from 'react';
+
+import SEO from '../components/SEO';
 
 type Post = {
   id: string;
@@ -13,6 +14,7 @@ type HomeProps = {
 export default function Home({ posts }: HomeProps) {
   return (
     <div>
+      <SEO title="Inicio" />
       <ul>
         {posts.map(post => (
           <li key={post.id}>{post.title}</li>
