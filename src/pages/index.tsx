@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useState, useEffect } from 'react';
 
 type Post = {
@@ -5,17 +6,11 @@ type Post = {
   title: string;
 };
 
-export default function Home() {
-  const [posts, setPosts] = useState<Post[]>([]);
+type HomeProps = {
+  posts: Post[];
+};
 
-  useEffect(() => {
-    fetch('http://localhost:3333/posts').then(response => {
-      response.json().then(data => {
-        setPosts(data);
-      });
-    });
-  }, []);
-
+export default function Home({ posts }: HomeProps) {
   return (
     <div>
       <ul>
@@ -26,3 +21,14 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const response = await fetch('http://localhost:3333/posts');
+  const posts = await response.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
